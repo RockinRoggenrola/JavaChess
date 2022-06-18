@@ -1,14 +1,19 @@
 class Square {
 
-    public static int sqX(int sqNum) {
+    static int sqX(int sqNum) {
         return sqNum % 8;
     }
 
-    public static int sqY(int sqNum) {
+    static int sqY(int sqNum) {
         return (sqNum - sqNum % 8)/8;
     }
 
-    public static int[] row(int sqNum) {
+    static char color(Board board, int sqNum) {
+        if (board.squares[sqNum] == null) return 'n';
+        return board.squares[sqNum].charAt(0);
+    }
+
+    static int[] row(int sqNum) {
         int[] row = new int[7];
         int x = Square.sqX(sqNum);
         int y = Square.sqY(sqNum);
@@ -21,18 +26,19 @@ class Square {
         for (; i < 8; i++) {
             row[i-1] = 8 * y + i;
         }
+
         return row;
     }
 
-    public static int rowMax(int sqNum) {
+    static int rowMax(int sqNum) {
         return 8 * Square.sqY(sqNum) + 7;
     }
 
-    public static int rowMin(int sqNum) {
+    static int rowMin(int sqNum) {
         return 8 * Square.sqY(sqNum) + 0;
     }
 
-    public static int[] col(int sqNum) {
+    static int[] col(int sqNum) {
         int[] col = new int[7];
         int x = Square.sqX(sqNum);
         int y = Square.sqY(sqNum);
@@ -48,15 +54,15 @@ class Square {
         return col;
     }
 
-    public static int colMax(int sqNum) {
+    static int colMax(int sqNum) {
         return 8 * 7 + Square.sqX(sqNum);
     }
 
-    public static int colMin(int sqNum) {
+    static int colMin(int sqNum) {
         return 8 * 0 + Square.sqX(sqNum);
     }
 
-    public static int[] rd(int sqNum) {
+    static int[] rd(int sqNum) {
         int x = Square.sqX(sqNum);
         int y = Square.sqY(sqNum);
         int lowerLen = Math.min(x, y);
@@ -71,21 +77,21 @@ class Square {
         return rd;
     }
 
-    public static int rdMax(int sqNum) {
+    static int rdMax(int sqNum) {
         int x = Square.sqX(sqNum);
         int y = Square.sqY(sqNum);
         int upperLen = Math.min(8-x, 8-y);
         return 8 * (y + upperLen) + (x + upperLen);
     }
 
-    public static int rdMin(int sqNum) {
+    static int rdMin(int sqNum) {
         int x = Square.sqX(sqNum);
         int y = Square.sqY(sqNum);
         int lowerLen = Math.min(x, y);
         return 8 * (y - lowerLen) + (x - lowerLen);
     }
 
-     public static int[] ld(int sqNum) {
+     static int[] ld(int sqNum) {
         int x = Square.sqX(sqNum);
         int y = Square.sqY(sqNum);
         int lowerLen = Math.min(8-x, y);
@@ -100,14 +106,14 @@ class Square {
         return ld;
     }
 
-    public static int ldMax(int sqNum) {
+    static int ldMax(int sqNum) {
         int x = Square.sqX(sqNum);
         int y = Square.sqY(sqNum);
         int upperLen = Math.min(x, 8-y);
         return 8 * (y + upperLen) + (x - upperLen);         
     }
 
-    public static int ldMin(int sqNum) {
+    static int ldMin(int sqNum) {
         int x = Square.sqX(sqNum);
         int y = Square.sqY(sqNum);
         int upperLen = Math.min(x, 8-y);
